@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  milvus:
+    image: milvusdb/milvus:0.10.5-cpu-d010621-4eda95
+    ports: 
+      - 19530:19530
+      - 19121:19121
+    volumes:
+      - ./.docker/milvus/db:/var/lib/milvus/db
+      - ./.docker/milvus/conf:/var/lib/milvus/conf
+      - ./.docker/milvus/logs:/var/lib/milvus/logs
+      - ./.docker/milvus/wal:/var/lib/milvus/wal
+    networks:
+      - app-network
+
+  # mysql:
+  #   image: mysql:5.7
+  #   volumes: 
+  #     - ./.docker/database:/var/lib/mysql
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge
